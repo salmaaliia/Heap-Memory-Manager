@@ -38,24 +38,15 @@ void Hmmfree(void *ptr)
     // If there is a lot of free space in the end of the list, decrement the program break
     node *tail = head->Pre;
     size_t tailSZ = tail->sz;
-    intptr_t res = 0;
+    intptr_t res = tail->sz;
     size_t incrPB = tailSZ / PROGRAM_BREAK_ADDER;
     if(tailSZ > PROGRAM_BREAK_ADDER && ((size_t)(programBreak - (char *) tail) == tail->sz) ){
-            if(tailSZ % PROGRAM_BREAK_ADDER == 0){
-                    res = incrPB * PROGRAM_BREAK_ADDER;
-            }
-        else{
-                double rem = (((double)tailSZ / (double)PROGRAM_BREAK_ADDER));
-                res = (size_t)(rem * PROGRAM_BREAK_ADDER + 0.5);
-        }
-
-            if(res >= 128){
-                    void *result = Hmmsbrk(-res);
-                    if (result != (void *)-1) {
-                            deleteNode(tail);
-                    }
-            }
+	    void *result = Hmmsbrk(-res);
+	    if (result != (void *)-1) {
+		    deleteNode(tail);
+	    }
     }
+        
 
  }
 
