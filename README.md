@@ -24,4 +24,11 @@ To use the heap memory manager in your projects, include the relevant header fil
    git clone https://github.com/salmaaliia/Heap-Memory-Manager.git
    ```
 2. Include the necessary header files in your project.
+   ```bash
+   #include "Hmmalloc.h"
+   #include "Hmmfree.h"
+   ```
 3. Compile the source files with your application.
+   ```bash
+   gcc -o app app.c listHandlinf.c Hmmalloc.c Hmmfree.c Hmmsbrk.c
+   ```
