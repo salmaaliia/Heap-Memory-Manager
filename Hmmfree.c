@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <string.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -39,14 +40,16 @@ void Hmmfree(void *ptr)
     node *tail = head->Pre;
     size_t tailSZ = tail->sz;
     intptr_t res = tail->sz;
-    size_t incrPB = tailSZ / PROGRAM_BREAK_ADDER;
-    if(tailSZ > PROGRAM_BREAK_ADDER && ((size_t)(programBreak - (char *) tail) == tail->sz) ){
+//    size_t incrPB = tailSZ / PROGRAM_BREAK_ADDER;
+    if(tailSZ > PROGRAM_BREAK_ADDER && ((size_t)((char*)sbrk(0) - (char *) tail) == tail->sz) ){
+    	    deleteNode(tail);
 	    void *result = Hmmsbrk(-res);
-	    if (result != (void *)-1) {
-		    deleteNode(tail);
+	    if (result == (void *)-1) {
+		    createNode(tail, tailSZ);
+		   // deleteNode(tail);
 	    }
     }
-        
+}
 
- }
+ 
 

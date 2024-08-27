@@ -1,11 +1,21 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <string.h>
 #include <stdint.h>
 #include <stddef.h>
 #include "listHandling.h"
 
 char heap[MAX_HEAP_SIZE];
-char *programBreak = heap;
+//char *programBreak = heap;
+
+//char *programBreak = sbrk(0);
+char *programBreak;
+
+//__attribute__((constructor))
+//void initializeProgramBreak() {
+//    programBreak = sbrk(0);
+//}
+
 
 node *head = NULL;
 
@@ -24,6 +34,7 @@ void printList() {
     } while (current != head);
 }
 
+//void mergeNode(node *nodePlace, size_t addedSize)
 
 void createNode(node *nodePlace, size_t nodeSize)
 {
@@ -97,4 +108,3 @@ int deleteNode(node * nodePlace)
     return 1; // Return 1 to indicate successful deletion
 
 }
-
