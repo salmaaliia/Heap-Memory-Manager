@@ -1,7 +1,7 @@
 # Heap Memory Manager
 
 ## Overview
-This project implements a custom heap memory manager in C. It provides dynamic memory allocation and deallocation services using a statically allocated array to simulate the heap area. The project includes functions like `Hmmalloc`, `Hmmfree`, and `Hmmsbrk` to manage memory within the simulated heap.
+This project implements a custom heap memory manager in C. It provides dynamic memory allocation and deallocation services in the real heap. The project includes functions like `Hmmalloc`, `Hmmfree`, and `Hmmsbrk` to manage memory within the heap.
 
 ## Features
 - **Custom Memory Allocation (`Hmmalloc`)**: Allocates memory blocks in the real heap using a best-fit strategy.
