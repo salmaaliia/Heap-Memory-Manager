@@ -30,26 +30,36 @@ Compile all source files into position-independent code (PIC) object files using
 ```
 gcc -g -c -fPIC -Wall Hmmalloc.c Hmmfree.c listHandling.c Hmmsbrk.c Hmmrealloc.c Hmmcalloc.c mydynamic.c
 ```
-### Step 2: Create the Shared Library
+### Step 2: Create `mylib` folder to Compile the library into it
+```
+mkdir -p mylib
+```
+### Step 3: Create the Shared Library
 Link the object files into a shared library named libmyheap.so:
 ```
-gcc -shared -o libmyheap.so *.o
+gcc -shared -o mylib/libmyheap.so *.o
 ```
-### Step 3: Link the Shared Library to Your Program
+
+### Step 4: Copy the headers into the folders
+```
+cp *.h mylib/
+```
+
+### Step 5: Link the Shared Library to Your Program
 To compile a program (e.g., main.c) that uses this shared library, use the following command:
 ```
 gcc -o main main.c -I ./mylib/ -L ./mylib/ -lmyheap
 ```
 mylib is dircrory where the library exists.
 
-### Step 4: Set the Library Path
+### Step 6: Set the Library Path
 Before running your program, ensure the dynamic linker can find your shared library by setting the LD_LIBRARY_PATH:
 ```
 export LD_LIBRARY_PATH=./mylib
 ```
 This command sets the LD_LIBRARY_PATH environment variable to the ./mylib directory and exports it so that it's available to all commands and programs executed in the current shell session.
 
-### Step 5: Preload Your Library
+### Step 7: Preload Your Library
 To ensure your custom memory management functions are used instead of the default ones, you can preload your library:
 ```
 LD_PRELOAD=./mylib/libmyheap.so ./main
